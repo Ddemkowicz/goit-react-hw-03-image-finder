@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import '../styles.css';
+import PropTypes from 'prop-types';
 
 export default class Searchbar extends Component {
   componentDidMount() {}
@@ -29,3 +30,8 @@ export default class Searchbar extends Component {
     );
   }
 }
+
+Searchbar.propTypes = {
+  onFormSubmit: PropTypes.func.isRequired,
+  onInputChange: PropTypes.func.isRequired,
+};

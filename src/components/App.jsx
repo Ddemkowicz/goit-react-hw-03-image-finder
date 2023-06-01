@@ -1,4 +1,5 @@
 import Searchbar from './Searchbar';
+import PropTypes from 'prop-types';
 import '../styles.css';
 import { Component } from 'react';
 import { api } from 'api/api';
@@ -109,3 +110,8 @@ export class App extends Component {
     );
   }
 }
+
+App.propTypes = {
+  onFormSubmit: PropTypes.func,
+  onInputChange: PropTypes.func,
+};

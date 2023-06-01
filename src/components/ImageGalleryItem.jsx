@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import '../styles.css';
+import PropTypes from 'prop-types';
 
 export default class ImageGalleryItem extends Component {
   render() {
@@ -18,3 +19,13 @@ export default class ImageGalleryItem extends Component {
     );
   }
 }
+
+ImageGalleryItem.propTypes = {
+  image: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    webformatURL: PropTypes.string.isRequired,
+    tags: PropTypes.string.isRequired,
+    largeImageURL: PropTypes.string.isRequired,
+  }).isRequired,
+  openModal: PropTypes.func.isRequired,
+};
