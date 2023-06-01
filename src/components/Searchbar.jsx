@@ -1,80 +1,26 @@
 import React, { Component } from 'react';
 import '../styles.css';
-import { api } from 'api/api';
 
 export default class Searchbar extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      images: [],
-      query: '',
-      isLoading: false,
-      error: null,
-    };
-  }
-  onInputChange = event => {
-    this.setState({ query: event.target.value });
-  };
-  onFormSubmit = async event => {
-    event.preventDefault();
-    this.setState({ isLoading: true });
-    try {
-      const images = await api.fetchImagesWithQuery(this.state.query);
-      this.setState({ images });
-      console.log(images);
-    } catch (error) {
-      this.setState({ error });
-    } finally {
-      this.setState({ isLoading: false });
-      event.target.reset();
-    }
-  };
-
-  // buttonClick = async () => {
-  //   const bbb = this.state.query;
-
-  //   this.setState({ isLoading: true });
-  //   try {
-  //     const images = await api.fetchImagesWithQuery(this.state.query);
-  //     this.setState({ images });
-  //     console.log(images);
-
-  //     console.log(bbb);
-  //   } catch (error) {
-  //     this.setState({ error });
-  //   } finally {
-  //     this.setState({ isLoading: false });
-  //   }
-  // };
-
-  // async componentDidMount() {
-  //   this.setState({ isLoading: true });
-  //   try {
-  //     const images = await api.fetchImagesWithQuery(this.state.query);
-  //     this.setState({ images });
-  //     console.log(images);
-  //   } catch (error) {
-  //     this.setState({ error });
-  //   } finally {
-  //     this.setState({ isLoading: false });
-  //   }
-  // }
+  componentDidMount() {}
 
   render() {
+    const { onFormSubmit, onInputChange } = this.props;
+
     return (
       <div>
         <header className="Searchbar">
-          <form onSubmit={this.onFormSubmit} className="SearchForm">
+          <form onSubmit={onFormSubmit} className="SearchForm">
             <button type="submit" className="SearchForm-button">
-              <span className="SearchForm-button-label">Search</span>
+              <span className="lupa">🔍</span>
             </button>
 
             <input
-              onChange={this.onInputChange}
+              onChange={onInputChange}
               className="SearchForm-input"
               type="text"
-              autocomplete="off"
-              autofocus
+              autoComplete="off"
+              autoFocus
               placeholder="Search images and photos"
             />
           </form>

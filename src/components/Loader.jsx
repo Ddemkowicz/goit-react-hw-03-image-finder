@@ -4,7 +4,7 @@ import { MagnifyingGlass } from 'react-loader-spinner';
 export default class Loader extends Component {
   render() {
     return (
-      <div>
+      <div className="Loader">
         <MagnifyingGlass
           visible={true}
           height="80"
