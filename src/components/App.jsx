@@ -21,12 +21,14 @@ export class App extends Component {
       error: null,
       page: 1,
       isModalOpen: false,
+      scroll: -820,
     };
   }
 
   onInputChange = event => {
     this.setState({ query: event.target.value });
     this.setState({ page: 1 });
+    this.setState({ scroll: -820 });
   };
 
   onFormSubmit = async event => {
@@ -46,6 +48,7 @@ export class App extends Component {
     this.setState({ isLoading: true });
     await this.setState(prevState => ({
       page: prevState.page + 1,
+      scroll: prevState.scroll + 820,
     }));
 
     try {
@@ -57,7 +60,9 @@ export class App extends Component {
     } catch (error) {
       this.setState({ error });
     } finally {
+      // window.scrollTo(this.state.scroll, 1100);
       this.setState({ isLoading: false });
+      console.log(this.state.scroll);
     }
   };
 
@@ -76,13 +81,16 @@ export class App extends Component {
     }
   };
 
-  componentDidUpdate() {
-    const element = document.getElementById('2137');
+  componentDidUpdate(prevProps, prevState) {
+    window.scrollTo(0, this.state.scroll);
+
+    const element = document.getElementById('kremowka');
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
     }
   }
   render() {
+    const { isLoading } = this.props;
     return (
       <div className="App">
         <Searchbar
@@ -90,12 +98,22 @@ export class App extends Component {
           onInputChange={this.onInputChange}
         />
         {this.state.isLoading ? (
-          <Loader />
+          <>
+            <ImageGallery
+              openModal={this.openModal}
+              images={this.state.images}
+            />
+            <Loader />
+          </>
         ) : (
           <ImageGallery openModal={this.openModal} images={this.state.images} />
         )}
         {this.state.images.length > 0 && this.state.images.length % 12 === 0 ? (
-          <Button onLoadMore={this.onLoadMore} />
+          isLoading ? (
+            ''
+          ) : (
+            <Button onLoadMore={this.onLoadMore} />
+          )
         ) : (
           ''
         )}

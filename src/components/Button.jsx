@@ -13,7 +13,7 @@ export default class Button extends Component {
     const { onLoadMore } = this.props;
     return (
       <div className="container">
-        <button id="2137" onClick={onLoadMore} className="Button">
+        <button id="kremowka" onClick={onLoadMore} className="Button">
           Load more
         </button>
       </div>

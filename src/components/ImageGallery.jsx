@@ -10,7 +10,11 @@ export default class ImageGallery extends Component {
       <>
         <ul className="ImageGallery">
           {images.map(image => (
-            <ImageGalleryItem openModal={openModal} image={image} />
+            <ImageGalleryItem
+              key={image.id}
+              openModal={openModal}
+              image={image}
+            />
           ))}
         </ul>
       </>
@@ -22,8 +26,8 @@ ImageGallery.propTypes = {
   images: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.number.isRequired,
-      url: PropTypes.string.isRequired,
-      alt: PropTypes.string.isRequired,
+      url: PropTypes.string,
+      alt: PropTypes.string,
     })
   ).isRequired,
   openModal: PropTypes.func.isRequired,
