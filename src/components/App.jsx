@@ -21,14 +21,14 @@ export class App extends Component {
       error: null,
       page: 1,
       isModalOpen: false,
-      scroll: -820,
+      scroll: -840,
     };
   }
 
   onInputChange = event => {
     this.setState({ query: event.target.value });
     this.setState({ page: 1 });
-    this.setState({ scroll: -820 });
+    this.setState({ scroll: -840 });
   };
 
   onFormSubmit = async event => {
@@ -48,7 +48,7 @@ export class App extends Component {
     this.setState({ isLoading: true });
     await this.setState(prevState => ({
       page: prevState.page + 1,
-      scroll: prevState.scroll + 820,
+      scroll: prevState.scroll + 840,
     }));
 
     try {
@@ -60,9 +60,7 @@ export class App extends Component {
     } catch (error) {
       this.setState({ error });
     } finally {
-      // window.scrollTo(this.state.scroll, 1100);
       this.setState({ isLoading: false });
-      console.log(this.state.scroll);
     }
   };
 
@@ -78,11 +76,14 @@ export class App extends Component {
     if (e.currentTarget === e.target || e.code === 'Escape') {
       enableBodyScroll(document.body);
       this.setState({ isModalOpen: false });
+      this.setState({ largeImageURL: '' });
     }
   };
 
   componentDidUpdate(prevProps, prevState) {
-    window.scrollTo(0, this.state.scroll);
+    if (prevState.images !== this.state.images) {
+      window.scrollTo(0, 50 + this.state.scroll);
+    }
 
     const element = document.getElementById('kremowka');
     if (element) {
